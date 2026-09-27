@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NSOffice | Live Interview & Pitch Rehearsal Coach</title>
+  <meta name="description" content="AI Centre of Excellence real-time voice interview and client pitch rehearsal coach powered by Google Gemini 3.1 Flash Live and Gemini 3 Flash.">
+
+  <!-- Google Font: DM Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+
+  <!-- Design System Tokens & Liquid Glass Engine -->
+  <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Background Ambient Liquid Glow -->
+  <div class="ambient-mesh">
+    <div class="glow-orb orb-primary"></div>
+    <div class="glow-orb orb-secondary"></div>
+  </div>
+
+  <!-- Header / Navigation Bar -->
+  <header class="app-header glass-panel">
+    <div class="brand-container">
+      <div class="brand-logo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="9" stroke="#0066FF" stroke-width="2.5" />
+          <circle cx="12" cy="12" r="4" fill="#0066FF" />
+          <path d="M12 3V7M12 17V21M3 12H7M17 12H21" stroke="#0066FF" stroke-width="2" stroke-linecap="round" />
+        </svg>
+      </div>
+      <div class="brand-text">
+        <span class="brand-name">NSOFFICE<span class="brand-accent">.AI</span></span>
+        <span class="brand-tag">AI Centre of Excellence</span>
+      </div>
+    </div>
+
+    <div class="header-status">
+      <div class="status-indicator">
+        <span class="status-dot live" id="live-indicator-dot"></span>
+        <span class="status-text" id="live-indicator-text">Gemini Live Ready</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container: 3 Views (One primary action per view) -->
+  <main class="main-container">
+
+    <!-- =====================================================================
+         VIEW 1: STUDIO SETUP & PERSONA SELECTION
+         ===================================================================== -->
+    <section id="view-setup" class="view-section active">
+      <div class="hero-block">
+        <div class="badge-pill">Professional Services Rehearsal</div>
+        <h1 class="hero-title">Live Interview & Pitch Rehearsal Coach</h1>
+        <p class="hero-subtitle">
+          Rehearse high-stakes interviews and client pitches out loud against real-time AI panels.
+          Experience natural mid-response interruptions (barge-in) and receive an instant executive spoken critique.
+        </p>
+      </div>
+
+      <!-- Gemini API Key Configuration Banner (Visible when key is needed on Vercel or locally) -->
+      <div id="api-key-banner" class="glass-card api-key-banner" style="display: none;">
+        <div class="api-key-banner-content">
+          <div class="api-key-info">
+            <span class="api-key-icon">🔑</span>
+            <div>
+              <div class="api-key-title">Gemini API Key Required</div>
+              <div class="api-key-subtitle">Enter your Gemini API key to start rehearsals on Vercel, or click "Use Project Key" below.</div>
+            </div>
+          </div>
+          <div class="api-key-inputs">
+            <input type="password" id="input-api-key" class="glass-input api-key-input" placeholder="Paste Gemini API key..." />
+            <button id="btn-save-api-key" class="btn-api-key-save">Save Key</button>
+            <button id="btn-use-default-key" class="btn-api-key-default">Use Project Key</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="setup-grid">
+        <!-- Rehearsal Focus & Topic Card -->
+        <div class="glass-card config-card">
+          <div class="card-header">
+            <span class="step-num">01</span>
+            <h2 class="card-title">Rehearsal Topic & Focus</h2>
+          </div>
+          <p class="card-desc">Type what answer you want to recite, or the specific topic/question you want to be interviewed on.</p>
+
+          <div class="input-group">
+            <label for="input-rehearsal-topic">What answer or topic would you like to rehearse?</label>
+            <textarea id="input-rehearsal-topic" class="glass-textarea" rows="5" placeholder="Type here what you want to recite or rehearse, for example:
+• 'I want to recite my STAR answer for leading a cross-functional cloud turnaround under tight deadlines.'
+• 'Interview me on: Why should we hire you as a Senior Strategy Consultant?'
+• 'I am pitching an enterprise Generative AI solution to a skeptical CFO.'
+• 'Grilled on: Designing a fault-tolerant real-time payment pipeline.'"></textarea>
+          </div>
+
+          <div class="quick-topics-row">
+            <span class="quick-topics-label">Quick Inspiration:</span>
+            <div class="quick-pill-tags">
+              <button type="button" class="topic-pill-btn" data-topic="I want to rehearse my STAR answer on resolving a high-stakes team conflict and shipping an enterprise product on time.">Team Conflict (STAR)</button>
+              <button type="button" class="topic-pill-btn" data-topic="Pitching a $3M Generative AI automation platform to a skeptical corporate CFO. Focus on ROI and payback period.">Enterprise Pitch (CFO)</button>
+              <button type="button" class="topic-pill-btn" data-topic="McKinsey Case: How would you evaluate entering the electric vehicle battery market in India?">Case Interview (McKinsey)</button>
+              <button type="button" class="topic-pill-btn" data-topic="System Design: Scaling a low-latency payment processing gateway to 50,000 transactions per second.">System Design Architecture</button>
+            </div>
+          </div>
+
+          <div class="input-group" style="margin-top: var(--space-4);">
+            <label for="input-target-role">Target Role or Company (Optional)</label>
+            <input type="text" id="input-target-role" class="glass-input" placeholder="e.g. Senior Partner at McKinsey, or Staff Engineer at Google">
+          </div>
+        </div>
+
+        <!-- Session Modalities Card -->
+        <div class="glass-card config-card">
+          <div class="card-header">
+            <span class="step-num">02</span>
+            <h2 class="card-title">Modalities & Awareness</h2>
+          </div>
+          <p class="card-desc">Enable live camera presence or real-time pitch deck / screen awareness.</p>
+
+          <div class="modalities-list">
+            <div class="modality-toggle-card">
+              <div class="modality-text">
+                <span class="modality-title">Live Voice & Natural Barge-In</span>
+                <span class="modality-sub">Real-time bi-directional audio via Gemini 3.1 Flash Live</span>
+              </div>
+              <span class="status-chip active">Always Active</span>
+            </div>
+
+            <label class="modality-toggle-card clickable">
+              <div class="modality-text">
+                <span class="modality-title">Camera Feed Awareness</span>
+                <span class="modality-sub">Panelist evaluates executive posture, eye contact & confidence</span>
+              </div>
+              <input type="checkbox" id="toggle-camera" class="apple-toggle">
+            </label>
+
+            <label class="modality-toggle-card clickable">
+              <div class="modality-text">
+                <span class="modality-title">Slide Deck & Screen Sharing</span>
+                <span class="modality-sub">Share slides or documents; AI reads and questions your deck live</span>
+              </div>
+              <input type="checkbox" id="toggle-screen" class="apple-toggle">
+            </label>
+          </div>
+
+          <div class="difficulty-group">
+            <label class="group-label">Panel Intensity & Pushback Level</label>
+            <div class="segmented-control">
+              <button type="button" class="segment-btn" data-diff="gentle">Gentle Coach</button>
+              <button type="button" class="segment-btn active" data-diff="standard">Standard Panel</button>
+              <button type="button" class="segment-btn" data-diff="ruthless">Ruthless Boardroom</button>
+            </div>
+          </div>
+
+          <div class="voice-group">
+            <label class="group-label" for="select-voice">Interviewer Voice Persona</label>
+            <select id="select-voice" class="glass-select">
+              <option value="Aoede" selected>Aoede (Sophisticated, Crisp Executive)</option>
+              <option value="Puck">Puck (Energetic, Skeptical Director)</option>
+              <option value="Charon">Charon (Deep, Authoritative Architect)</option>
+              <option value="Fenrir">Fenrir (Dynamic, High-Pace Partner)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- ONE PRIMARY ACTION PER VIEW -->
+      <div class="action-footer">
+        <button id="btn-start-rehearsal" class="primary-action-btn liquid-glass">
+          <span class="btn-text">Enter Studio & Start Rehearsal</span>
+          <span class="btn-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+          </span>
+        </button>
+      </div>
+    </section>
+
+
+    <!-- =====================================================================
+         VIEW 2: LIVE REHEARSAL STUDIO
+         ===================================================================== -->
+    <section id="view-studio" class="view-section">
+      <!-- Studio Header Bar -->
+      <div class="studio-header glass-panel">
+        <div class="studio-meta">
+          <span class="studio-persona-badge" id="studio-persona-name">Senior Partner, McKinsey / BCG</span>
+          <span class="studio-difficulty-badge" id="studio-difficulty-name">Standard Panel</span>
+        </div>
+
+        <div class="studio-status-center">
+          <div class="live-pulse-badge" id="studio-status-badge">
+            <span class="pulse-ring"></span>
+            <span class="status-label" id="studio-status-text">Connecting to Live Panel...</span>
+          </div>
+        </div>
+
+        <!-- TOTAL INTERVIEW TIMER (Counts upward continuously, no per-answer countdown) -->
+        <div class="studio-timer-box total-interview-timer-box">
+          <span class="timer-label">Interview Time</span>
+          <span class="timer-digits" id="session-timer">00:00</span>
+        </div>
+      </div>
+
+      <!-- Controlled Interview Turn Flow Stage: Question -> Answer -> Next Question -->
+      <div class="interview-flow-container">
+        <!-- Question Card: AI Interviewer Question -->
+        <div class="glass-card interviewer-question-card" id="interviewer-question-card">
+          <div class="question-header-row">
+            <div class="interviewer-avatar-label">
+              <span class="avatar-icon">👔</span>
+              <span class="avatar-title">INTERVIEWER</span>
+            </div>
+            <span class="turn-phase-pill" id="turn-phase-pill">Question 1</span>
+          </div>
+          <div class="question-body">
+            <p class="question-text" id="current-question-text">"Connecting to panelist..."</p>
+          </div>
+          <div class="question-footer">
+            <span class="ai-speaking-dot" id="ai-speaking-dot"></span>
+            <span class="ai-speaking-text" id="ai-speaking-status">Interviewer is speaking...</span>
+          </div>
+        </div>
+
+        <div class="turn-flow-arrow">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <polyline points="19 12 12 19 5 12"></polyline>
+          </svg>
+        </div>
+
+        <!-- Answer Card: Candidate Natural Answer Stage (NO COUNTDOWN TIMER) -->
+        <div class="glass-card candidate-answer-card" id="candidate-answer-card">
+          <div class="answer-header-row">
+            <div class="candidate-avatar-label">
+              <span class="avatar-icon">🎯</span>
+              <span class="avatar-title">YOUR ANSWER</span>
+            </div>
+            <div class="interview-status-indicator" id="interview-status-indicator">
+              <span class="status-glow-dot" id="status-glow-dot"></span>
+              <span class="status-live-text" id="status-live-text">Your turn — Listening</span>
+            </div>
+          </div>
+          <div class="candidate-speech-box">
+            <p class="candidate-live-transcript" id="candidate-live-transcript">Just speak naturally — the panel is listening and will jump in with follow-ups.</p>
+          </div>
+          <div class="answer-status-row">
+            <div class="candidate-live-state" id="candidate-live-state">
+              <span class="state-pulse-icon" id="answer-state-icon">🎤</span>
+              <span class="state-label-text" id="answer-state-text">Your turn — Listening</span>
+            </div>
+            <div class="answer-actions-group">
+              <button id="btn-repeat-question" class="secondary-turn-btn" title="Ask interviewer to repeat the last question">
+                <span>🔁 Repeat Question</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Studio Stage -->
+      <div class="studio-stage">
+        <!-- Left Stage: Visual Media Card (Camera or Screen Share) -->
+        <div class="glass-card visual-media-card" id="media-card" style="display: none;">
+          <div class="card-sub-header">
+            <span class="stream-type-pill" id="media-type-label">Screen Feed</span>
+            <span class="feed-indicator">Live to Gemini</span>
+          </div>
+          <div class="video-viewport">
+            <video id="shared-video-preview" autoplay playsinline muted></video>
+            <canvas id="frame-capture-canvas" style="display: none;"></canvas>
+          </div>
+        </div>
+
+        <!-- Center Stage: Voice Orb & Soundwaves -->
+        <div class="glass-card voice-stage-card">
+          <div class="voice-orb-container liquid-glass" id="voice-orb-wrapper">
+            <div class="liquid-ring ring-3"></div>
+            <div class="liquid-ring ring-2"></div>
+            <div class="liquid-ring ring-1"></div>
+            <div class="core-voice-orb" id="core-orb">
+              <div class="orb-specular"></div>
+            </div>
+          </div>
+
+          <div class="speaker-state-label" id="speaker-state-label">
+            Connecting audio stream...
+          </div>
+
+          <!-- Dynamic Audio Waveform -->
+          <div class="waveform-container" id="waveform-bars">
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+            <div class="wave-bar"></div>
+          </div>
+
+          <div class="barge-in-hint">
+            <span class="hint-icon">⚡</span>
+            <span>Natural barge-in enabled: speak at any moment to interrupt the panelist</span>
+          </div>
+
+          <!-- Quick Secondary Stream Controls -->
+          <div class="quick-controls-bar">
+            <button id="btn-toggle-mic" class="control-pill" title="Mute/Unmute Mic">
+              <span class="icon">🎙️</span>
+              <span class="label" id="mic-status-label">Mute Mic</span>
+            </button>
+            <button id="btn-studio-camera" class="control-pill" title="Toggle Camera">
+              <span class="icon">📹</span>
+              <span class="label">Camera</span>
+            </button>
+            <button id="btn-studio-screen" class="control-pill" title="Share Screen / Deck">
+              <span class="icon">🖥️</span>
+              <span class="label">Share Deck</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Right Stage: Live Interaction Transcript Ticker -->
+        <div class="glass-card live-transcript-card">
+          <div class="card-sub-header">
+            <span class="stream-type-pill">Live Dialogue Ticker</span>
+            <span class="turn-count" id="turn-count-badge">0 turns</span>
+          </div>
+          <div class="transcript-feed" id="live-transcript-feed">
+            <div class="transcript-entry system-msg">
+              <span class="time-tag">00:00</span>
+              <p>Session started. The panelist will introduce the rehearsal.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- In-Studio Immediate Live Feedback Card (No separate screen loading!) -->
+      <div class="glass-card studio-feedback-card" id="studio-feedback-panel" style="display: none;">
+        <div class="studio-feedback-header">
+          <div class="feedback-badge-row">
+            <span class="live-feedback-pill">
+              <span class="pulse-feedback-dot"></span>
+              <span>LIVE EXECUTIVE FEEDBACK</span>
+            </span>
+            <span class="feedback-delivery-status" id="feedback-delivery-status">🎙️ Interviewer is delivering spoken debrief...</span>
+          </div>
+          <div class="studio-score-container">
+            <div class="score-display">
+              <span class="score-number" id="studio-feedback-score">85</span>
+              <span class="score-total">/100</span>
+            </div>
+            <div class="verdict-tag-pill" id="studio-feedback-verdict">Strong Performer</div>
+          </div>
+        </div>
+
+        <div class="studio-spoken-critique-box">
+          <div class="spoken-critique-header">
+            <span class="critique-icon">🗣️</span>
+            <span class="critique-title">Interviewer Verbal Critique:</span>
+          </div>
+          <p class="studio-spoken-critique-text" id="studio-spoken-critique-text">
+            Listening for executive debrief...
+          </p>
+        </div>
+
+        <div class="studio-feedback-grid">
+          <div class="feedback-col strengths-col">
+            <h4 class="col-title"><span class="icon">✅</span> Key Strengths</h4>
+            <ul id="studio-feedback-strengths" class="insights-list">
+              <li>Strong technical articulation and model reasoning</li>
+              <li>Good structural flow and confidence under questioning</li>
+            </ul>
+          </div>
+          <div class="feedback-col improvements-col">
+            <h4 class="col-title"><span class="icon">🎯</span> Top Areas to Improve</h4>
+            <ul id="studio-feedback-improvements" class="insights-list">
+              <li>Quantify baseline metrics before stating percentage gains</li>
+              <li>Provide concrete evidence for operational trade-offs</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="studio-feedback-actions">
+          <button id="btn-studio-export-markdown" class="secondary-btn" disabled>
+            <span>📋 Copy Debrief as Markdown</span>
+          </button>
+          <button id="btn-studio-rehearse-again" class="primary-action-btn liquid-glass">
+            <span class="btn-text">Start New Rehearsal Session</span>
+            <span class="btn-icon">🔄</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Dual Termination Bar: Voice-Based Intent + Visible Manual End Interview Button -->
+      <div class="studio-termination-bar glass-panel" id="studio-termination-bar">
+        <div class="voice-intent-pill" id="verbal-end-status-box">
+          <div class="voice-pulse-ring">
+            <span class="mic-wave-ring"></span>
+            <span class="pulse-icon">🎙️</span>
+          </div>
+          <div class="voice-intent-text">
+            <span class="intent-title" id="verbal-status-title">Voice Termination Active</span>
+            <span class="intent-sub" id="verbal-status-sub">Say <strong class="keyword-highlight">"End the interview"</strong>, <strong class="keyword-highlight">"I want to end the interview"</strong>, <strong class="keyword-highlight">"Let's stop here"</strong>, or <strong class="keyword-highlight">"That's all from my side"</strong> to finish verbally anytime.</span>
+          </div>
+        </div>
+
+        <!-- Manual Termination Button: ALWAYS ACCESSIBLE & PROMINENT -->
+        <button id="btn-end-rehearsal" class="end-interview-primary-btn" title="End interview immediately and compile debrief">
+          <span class="btn-icon">⏹</span>
+          <span class="btn-label">End Interview</span>
+        </button>
+      </div>
+    </section>
+
+
+    <!-- =====================================================================
+         VIEW 3: EXECUTIVE SCORECARD & DEBRIEF
+         ===================================================================== -->
+    <section id="view-debrief" class="view-section">
+      <!-- Loading State during Gemini 3 Flash critique generation -->
+      <div id="critique-loading" class="critique-loading-state glass-card">
+        <div class="loading-spinner"></div>
+        <h2 class="loading-title">Evaluating Rehearsal Performance...</h2>
+        <p class="loading-subtitle">Gemini 3 Flash is running full executive rubric analysis across structure, metrics, conciseness, and barge-in agility.</p>
+      </div>
+
+      <!-- Debrief Results Container -->
+      <div id="critique-content" style="display: none;">
+        <!-- Top Executive Summary Bar -->
+        <div class="glass-card executive-summary-card">
+          <div class="score-ring-col">
+            <div class="score-circle-wrapper">
+              <svg class="score-svg" viewBox="0 0 100 100">
+                <circle class="score-bg-circle" cx="50" cy="50" r="42" />
+                <circle class="score-bar-circle" id="score-bar-svg" cx="50" cy="50" r="42" />
+              </svg>
+              <div class="score-text-inner">
+                <span class="score-num" id="overall-score-num">--</span>
+                <span class="score-denom">/100</span>
+              </div>
+            </div>
+            <div class="verdict-tag" id="verdict-tag-pill">Evaluating</div>
+          </div>
+
+          <div class="summary-details-col">
+            <div class="debrief-badge">Executive Debrief</div>
+            <h2 class="summary-headline" id="debrief-headline">Analyzing your executive presence...</h2>
+            <p class="summary-paragraph" id="debrief-paragraph"></p>
+          </div>
+        </div>
+
+        <!-- Session Performance & Latency Telemetry -->
+        <div class="glass-card section-card perf-metrics-card" id="perf-metrics-card">
+          <div class="card-header-row">
+            <span class="section-icon">⚡</span>
+            <h3 class="section-title">Session Performance & Latency Telemetry</h3>
+          </div>
+          <p class="section-desc">Internal telemetry monitoring response latency, turn transitions, and Gemini Live efficiency.</p>
+          <div class="perf-metrics-grid">
+            <div class="perf-metric-box">
+              <span class="perf-val" id="perf-duration">0m 00s</span>
+              <span class="perf-lbl">Interview Duration</span>
+            </div>
+            <div class="perf-metric-box">
+              <span class="perf-val" id="perf-questions">0</span>
+              <span class="perf-lbl">Questions Asked</span>
+            </div>
+            <div class="perf-metric-box">
+              <span class="perf-val" id="perf-candidate-turns">0</span>
+              <span class="perf-lbl">Candidate Turns</span>
+            </div>
+            <div class="perf-metric-box">
+              <span class="perf-val" id="perf-gemini-requests">0</span>
+              <span class="perf-lbl">Gemini Requests</span>
+            </div>
+            <div class="perf-metric-box">
+              <span class="perf-val" id="perf-avg-response">-- ms</span>
+              <span class="perf-lbl">Avg Response Latency</span>
+            </div>
+            <div class="perf-metric-box">
+              <span class="perf-val" id="perf-avg-transition">-- ms</span>
+              <span class="perf-lbl">Avg Turn Latency</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4-Dimension Rubric Grid -->
+        <div class="rubric-grid" id="rubric-dimensions-grid">
+          <!-- Populated dynamically -->
+        </div>
+
+        <!-- Barge-In & Interruption Analysis -->
+        <div class="glass-card section-card">
+          <div class="card-header-row">
+            <span class="section-icon">⚡</span>
+            <h3 class="section-title">Barge-In & Interruption Handling Analysis</h3>
+          </div>
+          <p class="section-desc">Assessment of your agility and composure when the panel naturally interrupted mid-sentence.</p>
+          <div class="barge-in-list" id="barge-in-analysis-list">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+
+        <!-- Rephrase Drills (C-Suite Upgrades) -->
+        <div class="glass-card section-card">
+          <div class="card-header-row">
+            <span class="section-icon">💎</span>
+            <h3 class="section-title">Executive Rephrase Drills</h3>
+          </div>
+          <p class="section-desc">Direct phrase upgrades transforming casual answers into high-impact boardroom language.</p>
+          <div class="rephrase-grid" id="rephrase-drills-list">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+
+        <!-- Full Transcript & Action Drills -->
+        <div class="debrief-dual-row">
+          <div class="glass-card dual-col">
+            <h3 class="col-title">Actionable Practice Drills</h3>
+            <ul class="action-drills-list" id="action-drills-ul">
+              <!-- Populated dynamically -->
+            </ul>
+          </div>
+
+          <div class="glass-card dual-col">
+            <h3 class="col-title">Session Stats & Export</h3>
+            <div class="stats-table">
+              <div class="stat-row">
+                <span class="stat-label">Session Duration:</span>
+                <span class="stat-val" id="stat-duration">0m 00s</span>
+              </div>
+              <div class="stat-row">
+                <span class="stat-label">Dialogue Turns:</span>
+                <span class="stat-val" id="stat-turns">0</span>
+              </div>
+              <div class="stat-row">
+                <span class="stat-label">Barge-Ins Handled:</span>
+                <span class="stat-val" id="stat-interruptions">0</span>
+              </div>
+            </div>
+            <div class="export-actions">
+              <button id="btn-export-markdown" class="secondary-btn">
+                <span>📋 Copy Markdown Report</span>
+              </button>
+              <button id="btn-print-pdf" class="secondary-btn">
+                <span>📄 Print / Save PDF</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ONE PRIMARY ACTION PER VIEW -->
+      <div class="action-footer">
+        <button id="btn-rehearse-again" class="primary-action-btn liquid-glass">
+          <span class="btn-text">Start New Rehearsal Session</span>
+          <span class="btn-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+            </svg>
+          </span>
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Notification Toast -->
+  <div id="toast" class="toast-glass"></div>
+
+  <!-- Scripts -->
+  <script src="liquid-glass.js?v=20260927j"></script>
+  <script src="audio-processor.js?v=20260927j"></script>
+  <script src="app.js?v=20260927j"></script>
+</body>
+</html>

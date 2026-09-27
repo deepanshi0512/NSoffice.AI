@@ -1,0 +1,39 @@
+# Dependency directories
+node_modules/
+
+# Environment files - NEVER commit secrets
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env
+
+# Network Science Assignment PDF & documents
+*.pdf
+Network Science Assignment 2026.pdf
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Operating system files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# Build & deployment artifacts
+dist/
+build/
+.vercel
+.vercel/
+
+# Editor / IDE configuration
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace

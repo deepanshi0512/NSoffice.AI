@@ -1,0 +1,26 @@
+{
+  "name": "nsoffice-live-interviewer",
+  "version": "1.0.0",
+  "description": "NSOffice Live Interview and Pitch Rehearsal Coach powered by Gemini 3.1 Flash Live and Gemini 3 Flash",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "node test_question_flow.js"
+  },
+  "keywords": [
+    "gemini-live",
+    "multimodal-live-api",
+    "interview-coach",
+    "nsoffice",
+    "glass-ui",
+    "speech-to-speech"
+  ],
+  "author": "Network Science AI Centre of Excellence",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "ws": "^8.18.0"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "server.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "public/**",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "server.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "public/$1"
+    }
+  ],
+  "env": {
+    "GEMINI_LIVE_MODEL": "models/gemini-3.1-flash-live-preview",
+    "GEMINI_TEXT_MODEL": "gemini-3.8-flash"
+  }
+}
